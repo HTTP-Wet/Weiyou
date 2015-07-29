@@ -1,0 +1,468 @@
+<!DOCTYPE html>
+<html xmlns:wb="http://open.weibo.com/wb" onmousedown="MouseDown(event)"><head>
+<meta charset="utf-8">
+<link rel="shortcut icon" href="images/favicon.ico" />
+
+<title>维邮科技</title>
+
+<script src="http://tjs.sjs.sinajs.cn/open/api/js/wb.js" type="text/javascript" charset="utf-8"></script>
+
+<meta name="keywords" content="极链接，维特网，维邮，维邮浏览器，信息管理客户端，维邮科技,站点，虚拟站点,万维网，语义网，互联网,web2.0，web3.0,维树，维树结构,内容，聚合，信息系统，分布式网站">
+<meta name="description" content="维邮科技是一家专注于维特网技术开发与服务的企业。我们致力于通过技术创新实现信息的更高效聚合和更高效管理，我们励志于让用户享受更友好的信息服务。">
+
+<style>
+body{ margin: 0; padding: 0; min-width:680px; font-family: "Lato", sans-serif;}
+.atss{	background-repeat:no-repeat;
+		height: 686px;
+		background-position:center;}
+
+.topdiv { 
+		width:100%;
+		background-image: url("images/headbj.jpg");
+		background-size:100% 100% ;
+	}
+	.top{ 
+		width: 100%; 
+		min-width: 40em; 
+		height: 86px; 
+		fill-opacity: 0.02; 
+		background-color: rgba(0, 0, 0, 0.15); 
+		-moz-opacity: 0.3; 
+	}
+	.title{ margin: 2.6em 0 0 260px; float: left; display:none }
+	
+	.weibo{ margin: 2.8em 4px 0px; float: right; }
+	.weixin{ margin: 2.2em 0px 0px; float: right;cursor: pointer; }
+	.weixin2w{ top: 100px; padding:0; display: none; position: absolute;}
+	.boke{ margin: 2.2em 3.5em 0 0; float: right;cursor: pointer; }
+	
+	.mind{ width: 100%; filter:alpha(opacity=60);opacity:0; }
+		.zutuPng{ cursor: pointer; 
+			background-image: url("images/zutu1.png");
+			background-size:100% 100% ;
+		}
+		.oDiv{
+			width:100%; 
+			height:14px;
+		}
+			.O{
+				position: relative; 
+				width:14px;
+				height:14px; 
+				background:url(images/icon-circle.png) no-repeat 0px 0px; 
+				cursor: pointer; 
+				display: inline-block; 
+			}
+				.o0{ background-position: 0px 0px; }
+				.o1{ background-position: -14px 0px; }
+				.o2{ background-position: -14px 0px; }
+
+.all{ margin:0 ; padding: 0 2%; text-align: center; min-height: 15em; }
+	.bigImg{ margin:0; padding: 0; display: none; position: absolute; }
+	.ks{ margin: 2em 0 0;padding:0 2%; width: 21%; float: left; align-content: space-around; }
+		.allInc{  
+			width: 80px;
+			height: 80px;
+			display: inline-block;
+			background:url(images/img-sprite.png) no-repeat 0px 0px;
+			cursor: pointer;
+		}
+			.inc1{ background-position: 0px 0px; }
+			.inc2 { background-position: -80px 0px; }
+			.inc3 { background-position: -160px 0px; }
+			.inc4 { background-position: -240px 0px; }
+		.allT{	text-decoration: none; }
+		.allT h2{ 
+			color: #000;
+			font-size: 20px;
+			font-weight: bold;
+			line-height: 1.5em;
+		}
+		.ks p{
+			color: #7e8996;
+			font-weight: 400;
+			font-size: 14px;
+			text-align: center;
+			line-height: 1.5em;
+		}
+
+.footer {
+    float: left;
+    width: 100%;
+    height: 54px;
+    padding-top: 10px;
+    margin-top: 5px;
+    border-top: 1px solid #ccc;
+    line-height: 20px;
+    text-align: center;
+    _margin-right: -3px;
+	background-color: rgba(51,51,255,1);
+	color:#FFF
+}
+	.footer p{ margin:5px 0 0 0 }
+		.cj{ text-decoration: underline; color:#FFF; cursor: pointer;  }
+		.end{ line-height:25px }
+
+
+#start{ position: fixed;top:0px;left:0px;z-index:20;
+		filter:alpha(opacity=60);opacity:1; 
+		background-color:rgba(146, 108, 165, 1); 
+}
+#stimg{ position:fixed; z-index:21;
+		display:none;  
+}
+
+
+.logoimg{ position: fixed;top:0px;left:0px;width:4em;height:4em; z-index:28;
+	cursor: pointer; 
+	display:none
+}
+
+#CjSw{ position:fixed; top:38px; left:54px; width:400px; height:auto; z-index:23;
+		padding:1em;
+		background-color:rgba(255, 255, 255, 1);  
+		display:none;  
+}
+	.cps {
+		margin: 0;
+		text-align: left;
+		font-size: 18px;
+		font-family: Verdana,Arial,Helvetica,sans-serif;
+		line-height: 30px;
+	}
+		.lgs{ display: inline-block; }
+</style>
+
+<script type="text/javascript" charset="utf-8">
+// 获得窗口宽和高
+var winWidth = 0; 
+var winHeigth = 0
+function findDimensions(){  
+	if (window.innerWidth){
+		winWidth = window.innerWidth; 
+		winHeight = window.innerHeight; 
+	}
+	else if ((document.body) && (document.body.clientWidth)) 
+		winWidth = document.body.clientWidth; 
+		winHeight = document.body.clientHeight; 
+	 if (document.documentElement && document.documentElement.clientWidth){
+		  winWidth = document.documentElement.clientWidth;
+		  winHeight = document.documentElement.clientHeight;
+	 }
+	return winWidth
+} 
+
+// 显示微信二维码
+var timevs = 100
+function vsin(){ timevs = setTimeout(vstm(1),timevs) }
+function vsout(){ clearInterval(timevs);vstm(0); }
+function vstm(num){ 
+	var ts = document.getElementById('2wm')
+	if(num == 1){
+		findDimensions()
+		ts.style.left = winWidth - 320 + 'px'
+		ts.style.display = 'block'
+	}
+	else{
+		ts.style.display = 'none'
+	}
+}
+
+// 主图片切换
+var curIndex=0; 
+var timeInterval=2600; //时间间隔 单位毫秒 
+var timesp 
+var arr=new Array(); 
+arr[0]="zutu1.png"; 
+arr[1]="zutu2.png"; 
+arr[2] ="zutu3.png";
+
+var arp = new Array();
+arp[0] = 'http://www.cnblogs.com/Hosea/p/4676814.html';
+arp[1] = 'http://www.cnblogs.com/Hosea/p/4676827.html';
+arp[2] = 'http://www.cnblogs.com/Hosea/p/4676832.html';
+
+function changeImg() 
+{ 
+	if (curIndex < arr.length - 1) curIndex += 1; 
+	else curIndex = 0 ; 
+	
+	var obj = document.getElementById("zutu"); 
+	obj.style.backgroundImage = 'url(' + "images/"+arr[curIndex] + ')'; 
+
+	document.getElementById('o0').style.backgroundPosition = '-14px 0px'
+	document.getElementById('o1').style.backgroundPosition = '-14px 0px'
+	document.getElementById('o2').style.backgroundPosition = '-14px 0px'
+	document.getElementById('o' + curIndex).style.backgroundPosition = '0px 0px'
+
+} 
+
+// 收藏本网页
+function AddFavorite(title, url) {
+    try {
+        if (window.sidebar) { window.sidebar.addPanel(title, url, ""); }
+
+        else if (document.all) { if(navigator.userAgent.toLowerCase().indexOf("msie 8")>-1) external.AddToFavoritesBar(url,title,''); else window.external.AddFavorite(url, title); }
+
+        else if (window.opera && window.print) { return true; }
+		
+		else{ alert("收藏失败,请使用Ctrl+D进行添加.")}
+
+    } catch (e) { alert("收藏失败,请使用Ctrl+D进行添加."); }
+
+}
+
+// 鼠标移入移出到切换点
+function vddin(num){
+	clearInterval(timesp);
+	curIndex = num - 1
+	changeImg()
+}
+function vddout(){
+	timesp = setInterval(changeImg,timeInterval); 
+}
+
+// 鼠标移入移出到四位图
+function SiweiIn(num){
+    try {
+		var sa = document.getElementById('sa')
+		var odiv = document.getElementById('sn' + num);
+		sa.src = "images/siwei" + num + ".png"
+		var a = odiv.offsetLeft - 127
+		
+		if(num == 2) sa.style.left = a - 43 > 0? a - 43 + 'px' : '0px'
+		else sa.style.left = a > 0 ? a + 'px' : '0px'
+		
+		sa.style.top = odiv.offsetTop - 255 + 'px'
+		
+		sa.style.display = 'block'
+    } catch (e) { alert(e); }
+}
+
+function SiweiOut(num){ document.getElementById('sa').style.display = 'none' }
+
+// 模拟<a>标签
+function a(url){ window.open(url) }
+
+// 维邮浏览器
+var para = null;
+var bzcj0 = 0
+function Cj(num){
+	if(bzcj0 && num==0){
+		MouseDown(document.getElementById('start'))
+		bzcj0 = 0
+	}
+	else{
+		var obj = document.getElementById('CjSw')
+		if( para ) obj.removeChild(para)
+		
+		para = document.createElement("div")
+		obj.appendChild(para);	
+		
+		para.id = 'C' + num
+		para.className = 'cps'
+		
+		switch(num){
+			case 0:
+				para.innerHTML = '  '+
+				
+				
+				'<p><strong>关于</strong><br/><img class="lgs" src="images/logos.png"></img><span style="font-size:30px"><strong>维邮</strong></span>浏览器（网页base版）<br/><br/>&nbsp;&nbsp;&nbsp;&nbsp;基于极链接的广义浏览器。<br/><br/><span style="color:rgba(166, 162, 179, 1);font-size:16px;line-height: 18px;">版本 0.1.0.150725_base<br/>© 2015&nbsp;&nbsp;深圳市维邮科技有限公司</span></p>'
+				bzcj0 = 1
+				break;
+			case 1:
+				para.innerHTML = '<p><strong>关于我们</strong><br/>&nbsp;&nbsp;&nbsp;&nbsp;深圳市<strong>维邮科技</strong>有限公司是一家专注于维特网技术开发与服务的企业。我们致力于通过技术创新实现信息的高效聚合和高效管理，我们励志于让用户享受更友好的信息服务。<br/><br/><span id="ggg" style="text-decoration: underline; cursor: pointer;" >联系我们</span><br/><span style="color:rgba(166, 162, 179, 1);font-size:16px; line-height: 18px;">官网 www.wymail.cn<br/>邮箱 wy@wymail.cn<br/>QQ群 455423270</span></p>'
+				break;
+			case 2:
+				para.innerHTML = '<p><strong>关于本站</strong><br/><br/>&nbsp;&nbsp;&nbsp;本站是维邮科技官方网站，同时也是<strong>维邮</strong>浏览器（网页版）的应用实例（<strong>base</strong>阶段）和推广中心。“维邮”的技术开发还处于尝试阶段，我们将对其不断技术升级和内容更新，如果你对这款产品感兴趣，欢迎收藏本网页和持续关注我们。<br/><br/></p>'
+				break;
+			case 3:
+				para.innerHTML = '<p><strong>项目合作</strong><br/>' +
+				'<strong>极链接</strong>:我们相信极链接将会像HTML一样形成通用的标记语言，我们诚邀组织或个人与我们一起来完成这一伟大构想<br/>' +			
+				'<strong>维特网联盟</strong>：维特网（wet）是由极链接构成的信息互联网络。维特网联盟则意在通过开发协议、指南和标准来构建起被广泛使用的语义网络和人工智能。<br/>' + 
+				'<strong>广告合作</strong>：合作请 > <span id="ggg" style="text-decoration: underline; cursor: pointer;" >联系我们</span></p>'
+				break;
+			case 4:
+				para.innerHTML = '<p><strong>联系我们</strong><br/>深圳市维邮科技有限公司<br/><span style="color:rgba(166, 162, 179, 1);font-size:16px;line-height: 26px;">邮箱 wy@wymail.cn<br/>微博 ”维邮科技“<br/>QQ群 455423270</span></p>'
+				break;
+			default: 
+				break;			
+		
+		}
+		obj.style.display = 'block'
+		document.getElementById('start').style.opacity = 0.6
+		document.getElementById('start').style.display = 'block'
+	}
+}
+
+// 鼠标点击（维邮动作）
+function MouseDown(obj){
+	if(para){ // 关闭弹出框
+		if(obj.target.id == 'ggg') setTimeout('Cj(4)',1)
+		else if( !obj.target.id || ( obj.target.id && obj.target.id.charAt(0) != 'C') ){
+			document.getElementById('CjSw').removeChild(para)
+			document.getElementById('CjSw').style.display = 'none'
+			
+			findDimensions()
+			document.getElementById('start').style.width = winWidth + 'px'
+			document.getElementById('start').style.height = winHeight + 'px'
+			document.getElementById('start').style.display = 'none'
+			para = null
+		}
+	}	
+}
+
+// 初始化首页动画
+var tmTh 
+var n = 1, j = 0,wh=250,ht=86
+window.onresize = function(){
+	findDimensions()
+	Wch()
+}
+
+function Wch(){	
+	var sr = document.getElementById('zutu').offsetWidth * 0.45
+	document.getElementById('zutu').style.height =  sr  + 'px'
+
+	document.getElementById('o0').style.left = winWidth/2 - 21 + 'px'
+	document.getElementById('o1').style.left = winWidth/2 - 21 + 'px'
+	document.getElementById('o2').style.left = winWidth/2 - 21 + 'px'
+
+	document.getElementById('mind').style.height = sr + 24 + 'px'
+	
+	document.getElementById('topdiv').style.height = sr + 110 + 'px'
+
+}
+
+window.onload =	function(){
+	
+	findDimensions()
+	Wch()
+	document.getElementById('stimg').width = wh * 1.6
+	document.getElementById('stimg').height = ht * 1.6
+	document.getElementById('stimg').style.left = winWidth/2  - wh*0.8 + 'px'
+	document.getElementById('stimg').style.top = winHeight/2  - ht*0.8 + 'px'
+	document.getElementById('stimg').style.display = 'block'
+	
+	document.getElementById('start').style.width = winWidth + 'px'
+	document.getElementById('start').style.height = winHeight + 'px'
+	
+	setTimeout('tmTh = setInterval(tuihua,100)',1100)
+}
+
+
+// 首页动画-沿对角线移动
+function tuihua(){
+	if(n < 0){
+		document.getElementById('stimg').width = wh
+		document.getElementById('stimg').height = ht
+		document.getElementById('stimg').style.top = 0  + 'px'
+		document.getElementById('stimg').style.left = 0 + 'px'
+		n = 0
+	}
+	else if( n==0 ){
+		clearInterval(tmTh)
+		
+		document.getElementById('start').style.display = 'none'
+		document.getElementById('stimg').style.position = 'absolute'
+		
+		document.getElementById('logoimg').style.display = 'block'
+		document.getElementById('title').style.display = 'block'
+		tmTh = setInterval(mindSw,100)
+	}
+	else{
+		document.getElementById('stimg').width = wh * (1 + n*0.6 ) 
+		document.getElementById('stimg').height = ht * (1 + n*0.6 )
+		document.getElementById('stimg').style.top = winHeight/2 * n - ht * (1 + n*0.6 ) / 2 + 'px'
+		document.getElementById('stimg').style.left = winWidth/2 * n - wh * (1 + n*0.6 ) / 2 + 'px'
+		document.getElementById('start').style.opacity = n * 1.2
+		
+		n -= 0.01 *  j++
+	}
+}
+
+// 首页动画-淡化
+var sf = 0
+function mindSw(){
+	if(sf < 1){
+		sf += 0.1
+		document.getElementById('mind').style.opacity = sf
+	}
+	else{
+		clearInterval(tmTh)
+		timesp = setInterval(changeImg,timeInterval);
+	}
+}
+</script>
+</head>
+<body>
+<!-- top背景 -->
+<div id='topdiv' class="topdiv">
+    <div class='top'><!-- top背景 -->
+        <img id="title" class="title" src="images/logotxt.gif" /><!--开创信息世界未来-->
+        
+        <img class="boke" title="博客园" alt="博客园" src="images/blogs.png" onClick="a('http://www.cnblogs.com/Hosea/')" /><!-- 博客 -->
+
+        <img class='weixin' title="官方微信" alt="关注维邮科技官方微信" src="images/weixin.png" onClick="vsin()" onmousemove="vsin()" onmouseOut="vsout()" /><!-- 关注微信 -->
+        <img class='weixin2w' id="2wm" src="images/weixin.jpg" />
+        
+        <div class='weibo'><!-- 官方微博 -->
+        	<wb:follow-button height="24" width="67" type="red_1" uid="5598346406"></wb:follow-button>
+        </div>
+        
+	</div>
+    <!-- 主要的 -->
+    <div id="mind" class="mind">
+    	<div id='zutu' width='80%' class='zutuPng' onClick="a(arp[curIndex])" ></div><!-- 主视图 -->
+        <div class='oDiv'>
+            <div id='o0' class="O o0" onClick="vddin(0)" onmousemove='vddin(0)' onMouseOut="vddout(0)" ></div>
+            <div id='o1' class="O o1" onClick="vddin(1)" onmousemove='vddin(1)' onMouseOut="vddout(1)" ></div>
+            <div id='o2' class="O o2" onClick="vddin(2)" onmousemove='vddin(2)' onMouseOut="vddout(2)" ></div>
+        </div>
+    </div>
+</div>
+
+
+<div class="all"><!-- 所有项目 -->
+    <img id="sa" class='bigImg' />
+    <div class="ks"> 
+        <a id = 'sn0' class="allInc inc1" onmousemove="SiweiIn(0)" onMouseOut="SiweiOut(0)" href="http://www.cnblogs.com/Hosea/p/4676814.html" ></a>
+        <a class='allT' href="http://www.cnblogs.com/Hosea/p/4676814.html"><h2>极链接</h2></a>
+        <p>基于维树结构的统一数字资源关系标记语言。</p>
+    </div>
+    <div class="ks"> 
+        <a id = 'sn1' class='allInc inc2' onmousemove="SiweiIn(1)" onMouseOut="SiweiOut(1)" href="http://www.cnblogs.com/Hosea/p/4676827.html" ></a>
+        <a class='allT' href="http://www.cnblogs.com/Hosea/p/4676827.html"><h2>维特网</h2></a>
+        <p>基于极链接的信息互联网络。</p>
+    </div>
+    <div class="ks"> 
+        <a id='sn2' class='allInc inc3' onmousemove="SiweiIn(2)"  onMouseOut="SiweiOut(2)" href="http://www.cnblogs.com/Hosea/p/4676832.html" ></a>
+        <a class='allT' href="http://www.cnblogs.com/Hosea/p/4676832.html"><h2>维邮</h2></a>
+        <p>集内容编辑、发布、阅读和获取于一体的维特网浏览器(信息管理客户端)。</p>
+    </div>
+    <div class="ks">
+        <a id='sn3' class="allInc inc4" onmousemove="SiweiIn(3)" onMouseOut="SiweiOut(3)" href="http://www.cnblogs.com/Hosea/p/4676835.html" ></a>
+        <a class='allT' href="http://www.cnblogs.com/Hosea/p/4676835.html"><h2>维树</h2></a>
+        <p>在树型结构的基础上实现后继和包含关系的数据结构。</p>
+    </div>
+</div>
+
+<div class="footer">
+    <p><span class="cj" onClick="Cj(1)">关于我们</span>  |    
+    <span class="cj" onClick="Cj(2)">关于本站</span>  |    
+    <span class="cj" onClick="Cj(3)">项目合作</span>  |    
+    <span class="cj" onClick="Cj(4)">联系我们</span>  |  
+    <script type="text/javascript">var cnzz_protocol = (("https:" == document.location.protocol) ? " https://" : " http://");document.write(unescape("%3Cspan id='cnzz_stat_icon_1255760845'%3E%3C/span%3E%3Cscript src='" + cnzz_protocol + "s11.cnzz.com/z_stat.php%3Fid%3D1255760845%26show%3Dpic' type='text/javascript'%3E%3C/script%3E"));</script>
+    <br/>
+    <span class="end"> Copyright&nbsp;&nbsp;© 2015&nbsp;&nbsp;深圳市维邮科技有限公司</span>&nbsp;&nbsp; 粤ICP备: <spen class='cj' onClick='a("http://www.miitbeian.gov.cn/")'>15063320</spen></p>
+</div>
+
+<div id='other'>
+    <div id="start"></div><!-- 开始页面的背景 -->
+    <img id="stimg" src="images/logotxt.png" /><!-- logo + 维邮科技 -->
+    
+    <img id='logoimg' class='logoimg' title="维邮管家" alt="维邮管家" src='images/logos.gif' onClick="Cj(0)" /><!-- logo -->
+    <div id='CjSw'></div><!-- 显示框 -->
+</div>
+
+</body></html>
